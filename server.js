@@ -10,20 +10,27 @@ import request from 'request';
 const app = Express();
 
 const apiKey = '5fdb7de894515e9cc58fd0ca8fe9f5db';
-const testUrl = 'http://api.brewerydb.com/v2/beers/?key=' + apiKey + '&abv=8,10';
+const testUrl = 'http://api.brewerydb.com/v2/beers/?key=' + apiKey + '&abv=8,10&hasLabels=Y&withBreweries=Y';
 
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
+let testBody;
+
 app.get('/api', (req, res, next) => {
-    request.get(testUrl, (error, response, body) => {
-        if (!error && response.statusCode == 200) {
-            res.json(body); 
-        } else {
-            console.log(chalk.red('Error retrieving from brewerydb api:', error));
-        }
-    });
+    if (testBody === undefined) {
+        request.get(testUrl, (error, response, body) => {
+            if (!error && response.statusCode == 200) {
+                testBody = body;
+                res.json(body); 
+            } else {
+                console.log(chalk.red('Error retrieving from brewerydb api:', error));
+            }
+        });
+    } else {
+        res.json(testBody);
+    }
 });
 
 app.listen(3001, () => {

@@ -2,12 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import { Grid, Row, Col, Jumbotron } from 'react-bootstrap';
 import beerPic from './beer.jpg';
-
-const myHeaders = new Headers();
-
-const myInit = { method: 'GET',
-               headers: myHeaders,
-               };
+import ResultsList from './components/results-list';
 
 const styles = {
   header: {
@@ -29,9 +24,10 @@ class App extends Component {
       accept: 'application/json'
     })
       .then(response => response.json())
-      .then(beers => {
-        console.log(beers);
-        this.setState({ beers });
+      .then(responseJson => {
+        const results = JSON.parse(responseJson).data;
+        console.log(results);
+        this.setState({ beers: results });
       })
       .catch(err => {
         console.log('There was an error fetching from API:' + err.message);
@@ -50,10 +46,10 @@ class App extends Component {
           </Col>
         </Row>
         <Row>
-          <Col md={7}>
-            {/*<BeerList />*/}
+          <Col md={8}>
+            <ResultsList results={this.state.beers} />
           </Col>
-          <Col md={5}>
+          <Col md={4}>
             {/*<Map />*/}
           </Col>
         </Row>
