@@ -6,6 +6,7 @@ import bodyParser from 'body-parser';
 import chalk from 'chalk';
 import path from 'path';
 import request from 'request';
+import rp from 'request-promise';
 
 const app = Express();
 
@@ -21,7 +22,7 @@ let testBody;
 app.get('/api', (req, res, next) => {
     if (testBody === undefined) {
         request.get(testUrl, (error, response, body) => {
-            if (!error && response.statusCode == 200) {
+            if (!error && response.statusCode === 200) {
                 testBody = body;
                 res.json(body); 
             } else {
@@ -32,6 +33,52 @@ app.get('/api', (req, res, next) => {
         res.json(testBody);
     }
 });
+
+/* 
+    need to load all beers of all breweries within specified radius of geopoint,
+    search will be a keyword filter
+*/
+
+app.get('/api/search/geo/point', (req, res, next) => {
+    const qString = req.originalUrl.split('?')[1];
+    const searchUrl = 'http://api.brewerydb.com/v2/search/?' + qString;
+    const options = {
+        method: 'GET',
+        uri: 'http://api.brewerydb.com/v2/search/geo/point',
+        qs: {
+            key: apiKey,
+            lat: req.query.lat,
+            lng: req.query.lng,
+            radius: req.query.radius
+        },
+        json: true
+    };
+
+    rp(options)
+        .then(response => {
+            res.json(response);
+        })
+        .catch(next);
+});
+
+app.get('/api/brewery/:breweryId/beers', (req, res, next) => {
+    const options = {
+        method: 'GET',
+        uri: 'http://api.brewerydb.com/v2/brewery/' + req.params.breweryId + '/beers',
+        qs: {
+            key: apiKey,
+            withBreweries: 'Y'
+        },
+        json: true
+    };
+
+    rp(options)
+        .then(response => {
+            res.json(response);
+        })
+        .catch(next);
+});
+
 
 app.listen(3001, () => {
     console.log(chalk.cyan('Server listening on port 3001...'));

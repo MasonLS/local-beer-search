@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import './App.css';
 import { Grid, Row, Col, Jumbotron } from 'react-bootstrap';
 import beerPic from './beer.jpg';
-import ResultsList from './components/results-list';
+import BreweryList from './components/brewery-list';
+import BeerList from './components/beer-list';
+import update from 'react-addons-update';
 
 const styles = {
   header: {
@@ -14,24 +16,37 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
+      breweries: [],
       beers: [],
       searchTerm: ''
     };
   }
 
   componentDidMount() {
-    fetch('/api', {
-      accept: 'application/json'
-    })
+    navigator.geolocation.getCurrentPosition(({ coords }) => {
+      const uri = '/api/search/geo/point?lat=' + coords.latitude + '&lng=' + coords.longitude;
+      fetch(uri, {
+        accept: 'application/json'
+      })
       .then(response => response.json())
-      .then(responseJson => {
-        const results = JSON.parse(responseJson).data;
-        console.log(results);
-        this.setState({ beers: results });
+      .then(response => {
+        console.log(response.data);
+        const breweries = response.data;
+        this.setState({ breweries });
       })
       .catch(err => {
         console.log('There was an error fetching from API:' + err.message);
       });
+    });
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextState.beers.length === this.state.beers.length;
+  }
+
+  addBeers(beers) {
+    let newBeers = update(this.state.beers, { $push: [...beers] });
+    this.setState({ beers: newBeers });
   }
 
   render() {
@@ -46,11 +61,11 @@ class App extends Component {
           </Col>
         </Row>
         <Row>
-          <Col md={8}>
-            <ResultsList results={this.state.beers} />
-          </Col>
           <Col md={4}>
-            {/*<Map />*/}
+            <BreweryList breweries={this.state.breweries} addBeers={this.addBeers.bind(this)} />
+          </Col>
+          <Col md={8}>
+            <BeerList beers={this.state.beers} />
           </Col>
         </Row>
       </Grid>
