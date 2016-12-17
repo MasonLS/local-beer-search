@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 import { Grid, Row, Col, Jumbotron } from 'react-bootstrap';
 import beerPic from './beer.jpg';
 import BreweryList from './components/brewery-list';
