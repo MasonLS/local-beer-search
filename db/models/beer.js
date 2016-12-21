@@ -3,8 +3,7 @@ import Promise from 'bluebird';
 import Brewery from './brewery';
 
 function add(beer) {
-    return db.client().hmsetAsync('beer:' + beer.id, beer)
-        .then(() => Brewery.addBeer(beer.breweryId, beer.id))
+    return db.client().hmsetAsync('beer:' + beer.id, db.pruneObject(beer))
         .catch(db.error);
 }
 

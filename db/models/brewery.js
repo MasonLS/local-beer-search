@@ -2,6 +2,7 @@ import db from '../db';
 import Promise from 'bluebird';
 import geolib from 'geolib';
 
+
 function get(breweryId) {
     return db.client().hgetallAsync('brewery:' + breweryId);
 }
@@ -10,14 +11,14 @@ function add(brewery) {
     return db.client().saddAsync('breweries', brewery.id)
         .then(res => {
             if (res === 1) {
-                return db.client().hmsetAsync('brewery:' + brewery.id, brewery);        
+                return db.client().hmsetAsync('brewery:' + brewery.id, db.pruneObject(brewery));        
             }
         })
         .catch(db.error);
 }
 
 function addBeer(breweryId, beerId) {
-    return db.client().saddAsync(breweryId + ':beers', beers)
+    return db.client().saddAsync(breweryId + ':beers', beerId)
         .catch(db.error);
 }
 

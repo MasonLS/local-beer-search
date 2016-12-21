@@ -26,10 +26,21 @@ function error(err) {
     console.log('Database error:' + err.message);
 }
 
+function pruneObject(obj) {
+    for (let key in obj) {
+        if (typeof obj[key] === 'object' || typeof obj[key] === 'undefined') {
+            delete obj[key];
+        }
+    }
+
+    return Object.assign({}, obj);
+}
+
 export default {
     MODE_TEST,
     MODE_PRODUCTION,
     connect,
     client,
-    error
+    error,
+    pruneObject
 }
