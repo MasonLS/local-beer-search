@@ -51,8 +51,8 @@ function fetchPage(pageNum) {
 
 function processBrewery(brewery, beerId) {
     if (brewery.locations && brewery.locations.length > 0) {
-        brewery.latitude = brewery.locations[0].latitude;
-        brewery.longitude = brewery.locations[0].longitude;
+        brewery.latitude = brewery.locations[0].latitude || '';
+        brewery.longitude = brewery.locations[0].longitude || '';
     }
     
     if (brewery.images) {

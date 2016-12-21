@@ -22,15 +22,20 @@ function addBeer(breweryId, beerId) {
         .catch(db.error);
 }
 
-// takes a coordinates object and a radius in MILES, returns an array of IDs of breweries that are within range
-
-function getByDistanceFromLocation(coords, radius) {
-    const radiusInMeters = geolib.convertUnit('mi', radius);
+function getByDistance(coords, radius) {
+    const radiusInMeters = radius*1609.34;
     
     return db.client().smembersAsync('breweries')
         .then(breweryIds => {
             return Promise.map(breweryIds, breweryId => {
-                return db.client.hgetallAsync('brewery:' + breweryId);
+                return db.client().hgetallAsync('brewery:' + breweryId);
+            });
+        })
+        .then(breweries => {
+            return breweries.filter(brewery => {
+                return (brewery.latitude !== undefined && brewery.longitude !== undefined)
+                    && (brewery.latitude !== 'undefined' && brewery.longitude !== 'undefined')
+                    && (brewery.latitude !== '' && brewery.longitude !== '');
             });
         })
         .then(breweries => {
@@ -40,6 +45,10 @@ function getByDistanceFromLocation(coords, radius) {
                     longitude: brewery.longitude 
                 });
 
+                if (distanceInMeters <= radiusInMeters) {
+                    const distanceInMiles = distanceInMeters/1609.34;
+                    brewery.distance = distanceInMiles;
+                }
                 return distanceInMeters <= radiusInMeters;
             });
         })
@@ -50,5 +59,5 @@ export default {
     get,
     add,
     addBeer,
-    getByDistanceFromLocation
+    getByDistance
 }
