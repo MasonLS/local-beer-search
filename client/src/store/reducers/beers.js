@@ -2,14 +2,6 @@ import initialState from '../state';
 import actionTypes from '../actions/types';
 
 
-function getNextDisplayed (beers, activeFilters) {
-    return beers.filter(beer => {
-        //TODO
-        return true;
-    })
-    .map(beer => beer.id);
-}
-
 class ById {
     constructor(beers) {
         beers.forEach(beer => {
@@ -20,23 +12,20 @@ class ById {
 
 function beers(state = initialState.beers, action) {
     switch (action.type) {
-        case actionTypes.async.FETCH_BEERS_SUCCESS:
-            const all = [
-                ...state.all,
-                ...action.beers.map(beer => beer.id)
-            ]
+        case actionTypes.async.RECEIVE_BEERS:
             return {
                 ...state,
-                all,
-                displayed: getNextDisplayed(all, state.activeFilters),
-                byId: {
-                    ...state.byId,
-                    ...new ById(action.beers)
-                }
+                all: action.beers.map(beer => beer.id),
+                byId: new ById(action.beers)
             }
         case actionTypes.UPDATE_BEERS_FILTER:
-            //TODO
-            return state;
+            return {
+                ...state,
+                activeFilters: {
+                    ...state.activeFilters,
+                    ...action.filters
+                }
+            }
         default:
             return state;
     }

@@ -10,7 +10,6 @@ export default {
     },
     beers: {
         all: [],
-        displayed: [],
         byId: {},
         activeFilters: {
             name: '',

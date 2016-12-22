@@ -21,10 +21,10 @@ function requestBreweries() {
     }
 }
 
-function receiveBreweries(json) {
+function receiveBreweries(breweries) {
     return {
         type: actionTypes.async.FETCH_BREWERIES_SUCCESS,
-        breweries: json.data
+        breweries
     }
 }
 
@@ -38,14 +38,15 @@ function handleError(type, error) {
 export function fetchBreweries(coords, radius) {
     return function (dispatch) {
         dispatch(requestBreweries());
-        const uri = '/api/search/geo/point?lat=' + coords.latitude + '&lng=' + coords.longitude + '&radius=' + radius;
+        const uri = '/api/breweries/geopoint?lat=' + coords.latitude + '&lng=' + coords.longitude + '&radius=' + radius;
         
         return fetch(uri, {
             accept: 'application/json'
         })
         .then(response => response.json())
-        .then(json => {
-            dispatch(receiveBreweries(json));
+        .then(breweriesWithBeers => {
+            dispatch(receiveBreweries(breweriesWithBeers));
+            dispatch(receiveBeers(breweriesWithBeers));
         })
         .catch(error => {
             dispatch(handleError(actionTypes.async.FETCH_BREWERIES_FAILURE, error));
@@ -53,26 +54,12 @@ export function fetchBreweries(coords, radius) {
     }
 }
 
-function receiveBeers(json) {
+export function receiveBeers(breweriesWithBeers) {
+    const beers = breweriesWithBeers.reduce((a, b) => {
+       return a.concat(b.beers);
+    }, []);
     return {
-        type: actionTypes.async.FETCH_BEERS_SUCCESS,
-        beers: json.data
-    }
-}
-
-export function fetchBeers(breweryId) {
-    return function (dispatch) {
-        const uri = '/api/brewery/' + breweryId + '/beers';
-
-        return fetch(uri, {
-            accept: 'application/json'
-        })
-        .then(response => response.json())
-        .then(json => {
-            dispatch(receiveBeers(json));
-        })
-        .catch(error => {
-            dispatch(handleError(actionTypes.async.FETCH_BEERS_FAILURE), error);
-        });
+        type: actionTypes.async.RECEIVE_BEERS,
+        beers
     }
 }
