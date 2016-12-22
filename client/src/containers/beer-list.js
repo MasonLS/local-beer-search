@@ -2,6 +2,18 @@ import { connect } from 'react-redux';
 import BeerList from '../components/beer-list';
 
 
+function shouldThisBeerBeVisible(beer, filters) {
+    let decision = true;
+
+    for (let key in filters) {
+        if (filters[key] !== '' && beer[key] !== filters[key]) {
+            decision = false;
+        }
+    }
+
+    return decision;
+}
+
 function mapStateToProps(state) {
     return {
         beers: state.beers.all.map(beerId => {
@@ -12,6 +24,9 @@ function mapStateToProps(state) {
                     ...state.breweries.byId[beer.breweryId]
                 }
             }
+        })
+        .filter(beer => {
+            return shouldThisBeerBeVisible(beer, state.beers.activeFilters);
         })
     }
 }
