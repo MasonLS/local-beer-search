@@ -5,7 +5,10 @@ import actionTypes from '../actions/types';
 class ById {
     constructor(breweries) {
         breweries.forEach(brewery => {
-            this[brewery.breweryId] = {...brewery};
+            this[brewery.id] = {
+                ...brewery,
+                beers: brewery.beers.map(beer => beer.id)
+            };
         });
     }
 }
@@ -21,7 +24,7 @@ function breweries (state = initialState.breweries, action) {
         case actionTypes.async.FETCH_BREWERIES_SUCCESS:
             return {
                 ...state,
-                all: action.breweries.map(brewery => brewery.breweryId),
+                all: action.breweries.map(brewery => brewery.id),
                 byId: new ById(action.breweries),
                 isFetching: false
             }

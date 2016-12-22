@@ -8,4 +8,5 @@ const rootReducer = combineReducers({
     beers
 });
 
+
 export default rootReducer;

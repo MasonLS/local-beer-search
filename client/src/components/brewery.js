@@ -5,18 +5,6 @@ import { Image, Row, Col } from 'react-bootstrap';
 
 export default class Brewery extends Component {
 
-    componentDidMount() {
-        const uri = '/api/brewery/' + this.props.brewery.breweryId + '/beers';
-        fetch(uri, {
-            accept: 'application/json'
-        })
-        .then(response => response.json())
-        .then(response => {
-            const beers = response.data;
-            this.props.addBeers(beers);
-        });
-    }
-
     render() {
         return (
             <a className="list-group-item">
@@ -25,7 +13,7 @@ export default class Brewery extends Component {
                         <Image src={''} />
                     </Col>
                     <Col md={4}>
-                        {this.props.brewery.brewery.name}
+                        {this.props.brewery.name}
                     </Col>
                 </Row>
             </a> 
