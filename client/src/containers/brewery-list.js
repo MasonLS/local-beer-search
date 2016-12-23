@@ -9,7 +9,7 @@ function shouldThisBreweryBeVisible({ distance, name }, filters) {
         return false;
     }
 
-    if (filters.name.length !== '') {
+    if (filters.name !== '') {
         let lcNameFilter = filters.name.toLowerCase();
         let lcName = name.toLowerCase();
 

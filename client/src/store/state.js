@@ -18,10 +18,10 @@ export default {
         byId: {},
         activeFilters: {
             name: '',
-            style: '',
+            style: 'all',
             abv: {
-                lower: 'None',
-                upper: 'None'
+                lower: 'none',
+                upper: 'none'
             },
             breweryId: ''
         }

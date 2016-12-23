@@ -12,12 +12,15 @@ class BeerFilters extends Component {
                 <FormGroup>
                     <ControlLabel>Style</ControlLabel>
                     <FormControl componentClass="select" placeholder="All" value={this.props.filters.style} onChange={e => this.props.filterBeers({ style: e.target.value })}>
-                        <option value=""></option>
-                        <option value=""></option>
-                        <option value=""></option>
-                        <option value=""></option>
-                        <option value=""></option>
-                        <option value=""></option>
+                        <option value="all">All</option>
+                        <option value="lager">Lager</option>
+                        <option value="pilsener">Pilsener</option>
+                        <option value="ale">Ale</option>
+                        <option value="pale ale">Pale Ale</option>
+                        <option value="imperial pale ale">IPA</option>
+                        <option value="porter">Porter</option>
+                        <option value="stout">Stout</option>
+                        <option value="barleywine">Barleywine</option>
                     </FormControl>
                 </FormGroup>
                 <FormGroup>
