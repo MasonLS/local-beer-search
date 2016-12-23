@@ -1,6 +1,13 @@
 import actionTypes from './types';
 import fetch from 'isomorphic-fetch';
 
+export function changeFind(find) {
+    return {
+        type: actionTypes.CHANGE_FIND,
+        find
+    }
+}
+
 export function filterBreweries(filters) {
     return {
         type: actionTypes.UPDATE_BREWERIES_FILTER,

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col, Jumbotron } from 'react-bootstrap';
 import beerPic from '../beer.jpg';
-import BreweriesContainer from '../containers/breweries';
+import BreweryListContainer from '../containers/brewery-list';
 import BeerListContainer from '../containers/beer-list';
+import SidebarContainer from '../containers/sidebar';
 
 const styles = {
   header: {
@@ -11,8 +12,11 @@ const styles = {
 };
 
 class App extends Component {
-
   render() {
+    let list = <BreweryListContainer />
+    if (this.props.find === 'Beers') {
+      list = <BeerListContainer />
+    }
     return (
       <Grid fluid={true} style={styles.header}>
         <Row>
@@ -24,9 +28,9 @@ class App extends Component {
           </Col>
         </Row>
         <Row>
-          <BreweriesContainer />
-          <Col md={9}>
-            <BeerListContainer />
+          <SidebarContainer />
+          <Col md={9} mdOffset={3}>
+            {list}
           </Col>
         </Row>
       </Grid>
