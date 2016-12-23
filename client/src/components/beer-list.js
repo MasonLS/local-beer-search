@@ -1,8 +1,6 @@
 import React from 'react';
 import { ListGroup } from 'react-bootstrap';
 import Beer from './beer';
-import Brewery from './brewery';
-
 
 const BeerList = ({
     beers

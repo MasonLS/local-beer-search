@@ -8,11 +8,16 @@ class BreweryFilter extends Component {
             <div>
                 <FormGroup>
                     <ControlLabel>Name</ControlLabel>
-                    <FormControl type="text" placeholder="Anything" onChange={e => this.props.filterBreweries({ name: e.target.value })} />
+                    <FormControl type="text" placeholder="Anything" value={this.props.filters.name} onChange={e => this.props.filterBreweries({ ...this.props.filters, name: e.target.value })} />
                 </FormGroup>
                 <FormGroup>
                     <ControlLabel>Distance</ControlLabel>
-                    <FormControl componentClass="select" defaultValue={'10'} onChange={e => this.props.filterBreweries({ distance: e.target.value })}>
+                    <FormControl componentClass="select" value={this.props.filters.distance} onChange={e => {
+                                this.props.filterBreweries({ ...this.props.filters, distance: e.target.value })
+                                if (Number(e.target.value) > Number(this.props.filters.distance)) {
+                                    this.props.fetchBreweries(this.props.filters.coords, e.target.value);
+                                }
+                            }}>
                         <option value="5">5</option>
                         <option value="10">10</option>
                         <option value="20">20</option>

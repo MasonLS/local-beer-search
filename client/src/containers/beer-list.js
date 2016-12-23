@@ -2,16 +2,28 @@ import { connect } from 'react-redux';
 import BeerList from '../components/beer-list';
 
 
-function shouldThisBeerBeVisible(beer, filters) {
-    let decision = true;
+function shouldThisBeerBeVisible({ name, abv }, filters) {
 
-    for (let key in filters) {
-        if (filters[key] !== '' && beer[key] !== filters[key]) {
-            decision = false;
+    if (filters.name.length !== '') {
+        let lcNameFilter = filters.name.toLowerCase();
+        let lcName = name.toLowerCase();
+
+        for (let i = 0; i < lcNameFilter.length; i++) {
+            if (lcNameFilter[i] !== lcName[i]) {
+                return false;
+            }
         }
     }
 
-    return decision;
+    if (filters.abv.lower !== 'None' && Number(abv) < Number(filters.abv.lower)) {
+        return false;
+    }
+
+    if (filters.abv.upper !== 'None' && Number(abv) > Number(filters.abv.upper)) {
+        return false;
+    }
+
+    return true;
 }
 
 function mapStateToProps(state) {

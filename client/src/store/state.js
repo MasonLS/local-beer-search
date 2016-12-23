@@ -5,7 +5,11 @@ export default {
         byId: {},
         activeFilters: {
             name: '',
-            distance: ''
+            distance: '10',
+            coords: {
+                latitude: '',
+                longitude: ''
+            }
         },
         isFetching: false
     },
@@ -15,7 +19,10 @@ export default {
         activeFilters: {
             name: '',
             style: '',
-            abv: '',
+            abv: {
+                lower: 'None',
+                upper: 'None'
+            },
             breweryId: ''
         }
     }
