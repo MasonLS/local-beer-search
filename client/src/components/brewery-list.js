@@ -4,6 +4,12 @@ import Brewery from './brewery';
 
 
 class BreweryList extends Component {
+    componentDidMount() {
+        navigator.geolocation.getCurrentPosition(({ coords }) => {
+           this.props.fetchInitialBreweries(coords, 10);
+       });
+    }
+
     render() {
         return (
             <ListGroup>
