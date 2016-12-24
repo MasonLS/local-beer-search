@@ -26,14 +26,15 @@ class App extends Component {
           </Col>
         </Row>
         <Row>
+          <Col md={3}>
           <SidebarContainer />
-          <Col md={9} mdOffset={3}>
+          </Col>
+          <Col md={9}>
             <Router history={browserHistory}>
               <Route path="/">
                 <IndexRoute component={BreweryListContainer} />
                 <Route path="beers" component={BeerListContainer} />
                 <Route path="brewery/:id" component={BreweryDetailContainer} />
-                
               </Route>
             </Router>
           </Col>

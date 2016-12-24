@@ -1,6 +1,6 @@
 import BreweryDetail from '../components/brewery-detail';
 import { connect } from 'react-redux';
-import { filterBreweries } from '../store/actions/creators';
+import { filterBreweries, filterBeers } from '../store/actions/creators';
 
 function mapStateToProps(state) {
     return {
@@ -10,6 +10,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
+        filterBeers: (breweryId) => {
+            dispatch(filterBeers({ breweryId }));
+        }
     }
 }
 

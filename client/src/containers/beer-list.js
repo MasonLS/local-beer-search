@@ -18,7 +18,10 @@ function isStyle(beerStyle, style) {
     return true;
 }
 
-function shouldThisBeerBeVisible({ name, style, abv }, filters) {
+function shouldThisBeerBeVisible({ name, style, abv, breweryId }, filters) {
+    if (breweryId && breweryId !== filters.breweryId) {
+        return false;
+    }
 
     if (filters.name !== '') {
         const lcNameFilter = filters.name.toLowerCase();
