@@ -50,9 +50,18 @@ function fetchPage(pageNum) {
 }
 
 function processBrewery(brewery, beerId) {
-    if (brewery.locations && brewery.locations.length > 0) {
+    if (brewery.locations && brewery.locations.length > 0 && brewery.locations[0].isClosed !== 'Y') {
         brewery.latitude = brewery.locations[0].latitude || '';
         brewery.longitude = brewery.locations[0].longitude || '';
+        brewery.streetAddress = brewery.locations[0].streetAddress || '';
+        brewery.extendedAddress = brewery.locations[0].extendedAddress || '';
+        brewery.locality = brewery.locations[0].locality || '';
+        brewery.region = brewery.locations[0].region || '';
+        brewery.postalCode = brewery.locations[0].postalCode || '';
+        brewery.country = brewery.locations[0].country.displayName || '';
+        brewery.hoursOfOperation = brewery.locations[0].hoursOfOperation || '';
+        brewery.phone = brewery.locations[0].phone || '';
+        brewery.type = brewery.locations[0].locationType || '';
     }
     
     if (brewery.images) {

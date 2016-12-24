@@ -1,5 +1,5 @@
 export default {
-    find: 'Breweries',
+    find: 'breweries',
     breweries: {
         all: [],
         byId: {},

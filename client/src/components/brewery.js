@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { Image, Row, Col } from 'react-bootstrap';
+import { Link } from 'react-router';
 
-
-
-export default class Brewery extends Component {
+class Brewery extends Component {
 
     render() {
         return (
-            <a className="list-group-item" onClick={() => this.props.selectBrewery(this.props.brewery.id)}>
+            <Link to={'brewery/' + this.props.brewery.id} className="list-group-item">
                 <Row>
                     <Col md={8}>
                         <p>
@@ -21,7 +20,9 @@ export default class Brewery extends Component {
                         <Image src={this.props.brewery.imageIcon} />
                     </Col>
                 </Row>
-            </a> 
+            </Link>
         );
     }
 }
+
+export default Brewery;

@@ -37,10 +37,6 @@ function mapDispatchToProps(dispatch) {
         fetchInitialBreweries: (coords, radius) => {
             dispatch(fetchBreweries(coords, radius));
         },
-        selectBrewery: (breweryId) => {
-            dispatch(filterBeers({ breweryId }));
-            dispatch(changeFind('Beers'));
-        },
         filterBreweries: (filters) => {
             dispatch(filterBreweries(filters));
         }

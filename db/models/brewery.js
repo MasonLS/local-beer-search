@@ -10,9 +10,7 @@ function get(breweryId) {
 function add(brewery) {
     return db.client().saddAsync('breweries', brewery.id)
         .then(res => {
-            if (res === 1) {
-                return db.client().hmsetAsync('brewery:' + brewery.id, db.pruneObject(brewery));        
-            }
+            return db.client().hmsetAsync('brewery:' + brewery.id, db.pruneObject(brewery));
         })
         .catch(db.error);
 }
