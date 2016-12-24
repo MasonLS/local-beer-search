@@ -23,7 +23,6 @@ class App extends Component {
           <Col sm={12}>
             <Jumbotron>
               <h1>Local Beer Search</h1>
-              {/*<Search />*/}
             </Jumbotron>
           </Col>
         </Row>

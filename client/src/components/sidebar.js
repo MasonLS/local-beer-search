@@ -11,11 +11,18 @@ const styles = {
 }
 
 class Sidebar extends Component {
+    componentDidMount() {
+        navigator.geolocation.getCurrentPosition(({ coords }) => {
+            this.props.filterBreweries({ coords });
+            this.props.fetchBreweries(coords, 10);
+       });
+    }
+
     render() {
-        let filters = <BreweryFilters filterBreweries={this.props.filterBreweries} />;
+        let filters = <BreweryFilters filterBreweries={this.props.filterBreweries} fetchBreweries={this.props.fetchBreweries} filters={this.props.breweryFilters} />;
 
         if (this.props.find === 'Beers') {
-            filters = <BeerFilters filterBeers={this.props.filterBeers} />;
+            filters = <BeerFilters filterBeers={this.props.filterBeers} filters={this.props.beerFilters } />;
         }
 
         return (

@@ -1,17 +1,45 @@
 import { connect } from 'react-redux';
 import BeerList from '../components/beer-list';
 
+function isStyle(beerStyle, style) {
+    if (style === 'all') {
+        return true;
+    }
 
-function shouldThisBeerBeVisible(beer, filters) {
-    let decision = true;
+    const styleArr = style.split(' ');
+    const beerStyleArr = beerStyle.toLowerCase().split(' ');
 
-    for (let key in filters) {
-        if (filters[key] !== '' && beer[key] !== filters[key]) {
-            decision = false;
+    for (let i = 0; i < styleArr.length; i++) {
+        if (beerStyleArr.indexOf(styleArr[i]) === -1) {
+            return false;
         }
     }
 
-    return decision;
+    return true;
+}
+
+function shouldThisBeerBeVisible({ name, style, abv }, filters) {
+
+    if (filters.name !== '') {
+        const lcNameFilter = filters.name.toLowerCase();
+        const lcName = name.toLowerCase();
+
+        for (let i = 0; i < lcNameFilter.length; i++) {
+            if (lcNameFilter[i] !== lcName[i]) {
+                return false;
+            }
+        }
+    }
+
+    if (filters.abv.lower !== 'none' && Number(abv) < Number(filters.abv.lower)) {
+        return false;
+    }
+
+    if (filters.abv.upper !== 'none' && Number(abv) > Number(filters.abv.upper)) {
+        return false;
+    }
+
+    return isStyle(style, filters.style);
 }
 
 function mapStateToProps(state) {
