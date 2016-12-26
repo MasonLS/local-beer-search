@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
-
+import initialState from '../store/state';
 
 class BreweryFilter extends Component {
+    componentDidMount() {
+        this.props.filterBreweries({...initialState.breweries.activeFilters});
+    }
+
     render() {
         return (
             <div>
