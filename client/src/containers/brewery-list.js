@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import BreweryList from '../components/brewery-list';
-import { fetchBreweries, filterBreweries, filterBeers, changeFind } from '../store/actions/creators';
+import { fetchBreweries, pushState } from '../store/actions/creators';
 
 
 function shouldThisBreweryBeVisible({ distance, name }, filters) {
@@ -34,11 +34,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        fetchInitialBreweries: (coords, radius) => {
-            dispatch(fetchBreweries(coords, radius));
-        },
-        filterBreweries: (filters) => {
-            dispatch(filterBreweries(filters));
+        goToBrewery: (brewery) => {
+            dispatch(pushState({ name: 'breweryDetail', params: { brewery }}));
         }
     }
 }

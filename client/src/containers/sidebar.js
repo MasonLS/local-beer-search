@@ -1,10 +1,10 @@
 import Sidebar from '../components/sidebar';
 import { connect } from 'react-redux';
-import { changeFind, filterBreweries, filterBeers, fetchBreweries } from '../store/actions/creators';
+import { pushState, filterBreweries, filterBeers, fetchBreweries } from '../store/actions/creators';
 
 function mapStateToProps(state) {
     return {
-        find: state.find,
+        history: state.history,
         breweryFilters: state.breweries.activeFilters,
         beerFilters: state.beers.activeFilters
     }
@@ -12,14 +12,14 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        changeFind: (find) => {
-            dispatch(changeFind(find));
-        },
-        filterBreweries: (filters) => {
-            dispatch(filterBreweries(filters));
+        changeFind: (state) => {
+            dispatch(pushState(state));
         },
         fetchBreweries: (coords, radius) => {
             dispatch(fetchBreweries(coords, radius));
+        },
+        filterBreweries: (filters) => {
+            dispatch(filterBreweries(filters));
         },
         filterBeers: (filters) => {
             dispatch(filterBeers(filters));

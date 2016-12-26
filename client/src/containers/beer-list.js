@@ -19,7 +19,7 @@ function isStyle(beerStyle, style) {
 }
 
 function shouldThisBeerBeVisible({ name, style, abv, breweryId }, filters) {
-    if (breweryId && breweryId !== filters.breweryId) {
+    if (breweryId && filters.breweryId !== '' && breweryId !== filters.breweryId) {
         return false;
     }
 

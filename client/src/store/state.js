@@ -1,5 +1,14 @@
 export default {
-    find: 'breweries',
+    history: {
+        currentState: {
+            name: 'breweries',
+            params: {}
+        },
+        previousState: {
+            name: 'breweries',
+            params: {}
+        }
+    },
     breweries: {
         all: [],
         byId: {},

@@ -1,23 +1,18 @@
 import BreweryDetail from '../components/brewery-detail';
 import { connect } from 'react-redux';
-import { filterBreweries, filterBeers } from '../store/actions/creators';
-
-function mapStateToProps(state) {
-    return {
-        breweriesById: state.breweries.byId
-    }
-}
+import { filterBeers, pushState } from '../store/actions/creators';
 
 function mapDispatchToProps(dispatch) {
     return {
-        filterBeers: (breweryId) => {
+            goToBeers: (breweryId) => {
             dispatch(filterBeers({ breweryId }));
+            dispatch(pushState({ name: 'beers'}));
         }
     }
 }
 
 const BreweryDetailContainer = connect(
-    mapStateToProps,
+    null,
     mapDispatchToProps
 )(BreweryDetail);
 

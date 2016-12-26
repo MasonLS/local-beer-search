@@ -16,7 +16,7 @@ function convertNewLines(text) {
 
 class BreweryDetail extends Component {
     render() {
-        const brewery = this.props.breweriesById[this.props.params.id];
+        const brewery = this.props.brewery;
         const address = <p>{brewery.streetAddress}<br/>{`${brewery.locality}, ${brewery.region} ${brewery.postalCode}`}</p>;
 
         return (
@@ -39,7 +39,7 @@ class BreweryDetail extends Component {
                             </Col>
                             <Col md={4}>
                                 <p><a href={brewery.website}>{brewery.website}</a></p>
-                                <Link to={'beers'} onClick={() => this.props.filterBeers(this.props.params.id)}>Beers</Link>
+                                <a href="#" onClick={() => this.props.goToBeers(brewery.id)}>Beers</a>
                             </Col>
                         </Row>
                     </Col>
