@@ -4,9 +4,8 @@ import { filterBeers, pushState } from '../store/actions/creators';
 
 function mapDispatchToProps(dispatch) {
     return {
-            goToBeers: (breweryId) => {
-            dispatch(filterBeers({ breweryId }));
-            dispatch(pushState({ name: 'beers'}));
+            goBack: (breweryId) => {
+            
         }
     }
 }

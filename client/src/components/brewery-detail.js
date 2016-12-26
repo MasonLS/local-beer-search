@@ -39,7 +39,6 @@ class BreweryDetail extends Component {
                             </Col>
                             <Col md={4}>
                                 <p><a href={brewery.website}>{brewery.website}</a></p>
-                                <a href="#" onClick={() => this.props.goToBeers(brewery.id)}>Beers</a>
                             </Col>
                         </Row>
                     </Col>
