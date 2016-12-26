@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import breweries from './breweries';
 import beers from './beers';
-import find from './find';
+import history from './history';
 
 const rootReducer = combineReducers({
-    find,
+    history,
     breweries,
     beers
 });

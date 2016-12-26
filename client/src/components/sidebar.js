@@ -20,7 +20,7 @@ class Sidebar extends Component {
     render() {
         let filters = <BreweryFilters filterBreweries={this.props.filterBreweries} fetchBreweries={this.props.fetchBreweries} filters={this.props.breweryFilters} />;
 
-        if (this.props.find === 'beers') {
+        if (this.props.history.currentState.name === 'beers') {
             filters = <BeerFilters filterBeers={this.props.filterBeers} filters={this.props.beerFilters } />;
         }
 
@@ -29,10 +29,8 @@ class Sidebar extends Component {
                 <Form>
                     <FormGroup>
                         <ControlLabel>Find</ControlLabel>
-                        <FormControl componentClass="select" placeholder="Breweries" onChange={e => {
-                            this.props.changeFind(e.target.value);
-                            console.log(this.props)
-                            history.push(`/${e.target.value}`)
+                        <FormControl componentClass="select" value={this.props.history.currentState.name} onChange={e => {
+                            this.props.changeFind({ name: e.target.value });
                         }}>
                             <option value="breweries">Breweries</option>
                             <option value="beers">Beers</option>

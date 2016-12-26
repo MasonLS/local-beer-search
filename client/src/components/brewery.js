@@ -6,7 +6,7 @@ class Brewery extends Component {
 
     render() {
         return (
-            <Link to={'brewery/' + this.props.brewery.id} className="list-group-item">
+            <a href="#" onClick={() => this.props.goToBrewery(this.props.brewery)} className="list-group-item">
                 <Row>
                     <Col md={8}>
                         <p>
@@ -20,7 +20,7 @@ class Brewery extends Component {
                         <Image src={this.props.brewery.imageIcon} />
                     </Col>
                 </Row>
-            </Link>
+            </a>
         );
     }
 }

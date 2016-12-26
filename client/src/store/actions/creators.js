@@ -1,10 +1,10 @@
 import actionTypes from './types';
 import fetch from 'isomorphic-fetch';
 
-export function changeFind(find) {
+export function pushState(newState) {
     return {
-        type: actionTypes.CHANGE_FIND,
-        find
+        type: actionTypes.PUSH_STATE,
+        newState
     }
 }
 
