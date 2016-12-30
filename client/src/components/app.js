@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col, Jumbotron } from 'react-bootstrap';
 import beerPic from '../beer.jpg';
-import SidebarContainer from '../containers/sidebar';
-import router from '../store/router';
+import Breweries from './breweries';
+import Beers from './beers';
 
 const styles = {
   header: {
@@ -15,18 +15,11 @@ class App extends Component {
     return (
       <Grid fluid={true} style={styles.header}>
         <Row>
-          <Col sm={12}>
-            <Jumbotron>
-              <h1>Local Beer Search</h1>
-            </Jumbotron>
+          <Col sm={6}>
+            <Breweries />
           </Col>
-        </Row>
-        <Row>
-          <Col md={3}>
-          <SidebarContainer />
-          </Col>
-          <Col md={9}>
-            {router(this.props.history.currentState)}
+          <Col sm={6}>
+            <Beers />
           </Col>
         </Row>
       </Grid>

@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
-import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
-import initialState from '../store/state';
+import { Form, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 
-class BreweryFilter extends Component {
+class BreweryFilters extends Component {
     componentDidMount() {
-        this.props.filterBreweries({...initialState.breweries.activeFilters});
+        navigator.geolocation.getCurrentPosition(({ coords }) => {
+            this.props.filterBreweries({ coords });
+            this.props.fetchBreweries(coords, 10);
+       });
     }
 
     render() {
         return (
-            <div>
+            <Form inline>
                 <FormGroup>
                     <ControlLabel>Name</ControlLabel>
                     <FormControl type="text" placeholder="Anything" value={this.props.filters.name} onChange={e => this.props.filterBreweries({ ...this.props.filters, name: e.target.value })} />
@@ -27,10 +29,10 @@ class BreweryFilter extends Component {
                         <option value="100">100 miles</option>
                     </FormControl>
                 </FormGroup>
-            </div>
+            </Form>
         );
     }
 }
 
 
-export default BreweryFilter;
+export default BreweryFilters;
