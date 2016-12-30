@@ -6,6 +6,10 @@ function isStyle(beerStyle, style) {
         return true;
     }
 
+    if (!beerStyle) {
+        return false;
+    }
+
     const styleArr = style.split(' ');
     const beerStyleArr = beerStyle.toLowerCase().split(' ');
 

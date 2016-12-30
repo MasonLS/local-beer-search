@@ -1,7 +1,5 @@
 import { connect } from 'react-redux';
 import BreweryList from '../components/brewery-list';
-import { fetchBreweries, pushState } from '../store/actions/creators';
-
 
 function shouldThisBreweryBeVisible({ distance, name }, filters) {
 
@@ -34,9 +32,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        goToBrewery: (brewery) => {
-            dispatch(pushState({ name: 'breweryDetail', params: { brewery }}));
-        }
     }
 }
 

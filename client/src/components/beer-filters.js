@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
-import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
-import initialState from '../store/state';
+import { Form, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 
 class BeerFilters extends Component {
-    componentDidMount() {
-        this.props.filterBeers({...initialState.beers.activeFilters});
-    }
-
     render() {
         return (
-            <div>
+            <Form inline>
                 <FormGroup>
                     <ControlLabel>Name</ControlLabel>
                     <FormControl type="text" placeholder="Anything" value={this.props.filters.name} onChange={e => this.props.filterBeers({ name: e.target.value })} />
@@ -49,7 +44,7 @@ class BeerFilters extends Component {
                         <option value="10">10%</option>
                     </FormControl>
                 </FormGroup>
-            </div>
+            </Form>
         );
     }
 }
