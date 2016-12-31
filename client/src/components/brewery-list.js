@@ -6,7 +6,7 @@ class BreweryList extends Component {
     render() {
         return (
             <ListGroup>
-                {this.props.breweries.map(brewery => <Brewery brewery={brewery} key={brewery.id} goToBrewery={this.props.goToBrewery}/>)}
+                {this.props.breweries.map(brewery => <Brewery brewery={brewery} key={brewery.id} />)}
             </ListGroup>
         );
     }

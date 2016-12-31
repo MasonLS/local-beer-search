@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'react-bootstrap';
-import BreweryListContainer from '../containers/brewery-list';
+import BreweryList from './brewery-list';
 import BreweryFiltersContainer from '../containers/brewery-filters';
+import BreweryMap from './brewery-map';
 
 class Breweries extends Component {
     render() {
@@ -18,8 +19,11 @@ class Breweries extends Component {
                     </Col>
                 </Row>
                 <Row>
+                    <BreweryMap center={this.props.mapCenter} breweries={this.props.breweries}/>
+                </Row>
+                <Row>
                     <Col sm={12}>
-                        <BreweryListContainer />
+                        <BreweryList breweries={this.props.breweries} />
                     </Col>
                 </Row>
             </div>

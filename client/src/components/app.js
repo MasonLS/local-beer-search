@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Grid, Row, Col, Jumbotron } from 'react-bootstrap';
+import { Grid, Row, Col } from 'react-bootstrap';
 import beerPic from '../beer.jpg';
-import Breweries from './breweries';
+import BreweriesContainer from '../containers/breweries';
 import Beers from './beers';
 
 const styles = {
@@ -16,7 +16,7 @@ class App extends Component {
       <Grid fluid={true} style={styles.header}>
         <Row>
           <Col sm={6}>
-            <Breweries />
+            <BreweriesContainer />
           </Col>
           <Col sm={6}>
             <Beers />
