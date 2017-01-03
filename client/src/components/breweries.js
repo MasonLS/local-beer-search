@@ -7,26 +7,25 @@ import BreweryMap from './brewery-map';
 class Breweries extends Component {
     render() {
         return (
-            <div>
+            <Col sm={12}>
                 <Row>
-                    <Col sm={12}>
-                        <h3>Breweries</h3>
+                    <Col sm={4}>
+                        <BreweryMap center={this.props.mapCenter} breweries={this.props.breweries} fetchBreweries={this.props.fetchBreweries} filterBreweries={this.props.filterBreweries}/>
+                    </Col>
+                    <Col sm={8}>
+                        <Row>
+                            <Col sm={12}>
+                                <BreweryFiltersContainer />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col sm={12}>
+                                <BreweryList breweries={this.props.breweries} />
+                            </Col>
+                        </Row>
                     </Col>
                 </Row>
-                <Row>
-                    <Col sm={12}>
-                        <BreweryFiltersContainer />
-                    </Col>
-                </Row>
-                <Row>
-                    <BreweryMap center={this.props.mapCenter} breweries={this.props.breweries}/>
-                </Row>
-                <Row>
-                    <Col sm={12}>
-                        <BreweryList breweries={this.props.breweries} />
-                    </Col>
-                </Row>
-            </div>
+            </Col>
         );
     }
 }

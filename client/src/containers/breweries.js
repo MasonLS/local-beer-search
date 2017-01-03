@@ -1,5 +1,6 @@
 import Breweries from '../components/breweries';
 import { connect } from 'react-redux';
+import { filterBreweries, fetchBreweries } from '../store/actions/creators';
 
 function shouldThisBreweryBeVisible({ distance, name }, filters) {
 
@@ -31,9 +32,20 @@ function mapStateToProps(state) {
     }
 }
 
+function mapDispatchToProps(dispatch) {
+    return {
+        filterBreweries: (filters) => {
+            dispatch(filterBreweries(filters));
+        },
+        fetchBreweries: (coords, radius) => {
+            dispatch(fetchBreweries(coords, radius));
+        }
+    }
+}
+
 const BreweriesContainer = connect(
     mapStateToProps,
-    null
+    mapDispatchToProps
 )(Breweries);
 
 export default BreweriesContainer;

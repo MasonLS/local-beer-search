@@ -15,12 +15,7 @@ class App extends Component {
     return (
       <Grid fluid={true} style={styles.header}>
         <Row>
-          <Col sm={6}>
-            <BreweriesContainer />
-          </Col>
-          <Col sm={6}>
-            <Beers />
-          </Col>
+          <BreweriesContainer />
         </Row>
       </Grid>
     );

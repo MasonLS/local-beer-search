@@ -49,6 +49,7 @@
   "dependencies": {
     "babel-plugin-transform-object-rest-spread": "^6.20.2",
     "bootstrap": "^3.3.7",
+    "google-maps-react": "^1.0.19",
     "isomorphic-fetch": "^2.2.1",
     "react": "^15.4.1",
     "react-addons-update": "^15.4.1",
